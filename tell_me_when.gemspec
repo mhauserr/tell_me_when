@@ -18,10 +18,11 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "docopt"
-  spec.add_runtime_dependency "green_shoes"
-  spec.add_runtime_dependency 'nokogiri'
+  spec.add_runtime_dependency "docopt", "~> 0.5.0"
+  spec.add_runtime_dependency "green_shoes", "~> 1.1.374"
+  spec.add_runtime_dependency 'nokogiri', "~> 1.6.1"
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec", "~> 3.0"
 end

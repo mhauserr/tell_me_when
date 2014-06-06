@@ -11,33 +11,35 @@ module TellMeWhen
     DOC = <<DOCOPT
 
 Usage:
-  #{__FILE__} [--css | --xpath] [--appears | --disappears] [--matches=<regex>] <site> <path_to_element>
-  #{__FILE__} -h | --help
-  #{__FILE__} --version
+  tell_me_when [--no-gui] [-c | -x] [-a | -d ] [--matches=<regex>] <site> <path_to_element>
+  tell_me_when -h | --help
+  tell_me_when -v | --version
 
 Options:
   -h --help                      Show this screen.
-  --version                      Show version.
-  -c --css                       Search by css
+  -v --version                   Show version.
+  -c --css                       Search by css [default: true]
   -x --xpath                     Search by xpath
-  -a --appears                   Display when value appears
+  -a --appears                   Display when value appears [default: true]
   -d --disappears                Display when value disappears
   -m=<regex> --matches=<regex>   Display only if the element matches the regex
+  --no-gui                       Does not display the gui
 
 DOCOPT
 
     def initialize(arguments, stdin)
       begin
-        opts = Docopt::docopt(DOC)
+        opts = Docopt::docopt(DOC, {:argv => arguments})
         if opts["--version"]
           puts VERSION
-          return
+          return VERSION
         end
         @site = opts["<site>"]
         @path_to_element = opts["<path_to_element>"]
         tell_me_when(opts)
       rescue Docopt::Exit => e
         puts e.message
+        return e.message
       end
     end
 
@@ -64,9 +66,13 @@ DOCOPT
       test = (regex = opts["--matches"])? response.text.match(regex) : !response.empty?
       test = opts["--appears"]? test : !test
       if test
-        alert <<TEXT
+        if opts["--no-gui"]
+          puts "woohoo"
+        else
+          alert <<TEXT
  You told me to tell you when #{@path_to_element} #{opts["--appears"]? "appears" : "disappears"} #{if !(opts["--matches"].nil?); "and matches #{opts["--matches"]} " end}on #{@site}"
 TEXT
+        end
       else
         puts "nope"
       end
