@@ -1,10 +1,6 @@
-# TellMeWhen
+# [ TellMeWhen ](https://github.com/mhauserr/tell_me_when)
 
-# tell_me_when
-
-code  :: https://github.com/mhauserr/tell_me_when
-
-## DESCRIPTION
+## Description
 
 This is a small simple application that displays a popup if a css or xpath
 selector is present on a page (and possibly if the text inside that selector
@@ -18,9 +14,11 @@ My usage is to add this to a crontab file with `crontab -e` then follow the advi
 ```
 this example checks the github status page every minute and will pop up a notice if the services are down (because there will not be an element that has id message and class good)
 
-## FEATURES/PROBLEMS:
+## Features/Problems:
 
-* FIX (list of features or problems)
+* Recognises css or xpath
+* Only tested on linux
+* Open an issue if you have a feature you would like to add.
 
 ## Usage
 
@@ -49,28 +47,35 @@ tell_me_when.rb -x -d https://status.github.com/ '//*[@id="message" and @class="
 tell_me_when.rb -c -a --matches="10.*" https://status.github.com/ "#graphs > div:nth-child(2) > div.data > span"
 ```
 
-## INSTALL:
+## Install
+Install in the usual way, like so:
 
 ```
 gem install tell_me_when
 ```
 
-## DEVELOPERS:
+## Developers
+To install dependencies and run tests just do the following:
+
 
 ```
 bundle
 rake test
 ```
+The code should be quite straight forward, open an issue if anythings unclear and I'll be happy to help
 
 ## Contributing
+
+Any contributions very much appreciated
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+6. Celebrate you awesome Pull request, by god you are classy.
 
-## LICENSE:
+## License
 
 (The MIT License)
 
